@@ -13,5 +13,10 @@ let appData = {
     savings: false
 };
 
-appData.expenses[prompt('Введите статью обязательных расходов', 'Обязательный расход')] = parseInt(prompt('Его значение', 0));
-appData.expenses[prompt('Введите статью обязательных расходов', 'Обязательный расход')] = parseInt(prompt('Его значение', 0));
+let first = prompt('Введите статью обязательных расходов', 'Обязательный расход');
+appData.expenses[first] = parseInt(prompt('Его значение', 0));
+let second = prompt('Введите статью обязательных расходов', 'Обязательный расход');
+appData.expenses[second] = parseInt(prompt('Его значение', 0));
+
+let daily = (appData.budget - appData.expenses[first] - appData.expenses[second])/30;
+alert("Доступный ежедневный расход: " + daily);
