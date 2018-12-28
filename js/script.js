@@ -13,10 +13,10 @@ let appData = {
 };
 
 for(let i = 0; i < 2; i++){
-    let a = prompt('Введите статью обязательных расходов', 'Обязательный расход'),
+    let a = prompt('Введите статью обязательных расходов ', 'Обязательный расход ' + (i+1)),
         b = +prompt('Его значение', 0);
     
-    if(typeof(a) != null && a.length <= 50 && a != '' && b != NaN){
+    if(typeof(a) != null && a.length <= 50 && a != '' && !isNaN(b) ){
 
         appData.expenses[a] = b;
     } else {
