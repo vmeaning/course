@@ -12,18 +12,53 @@ let appData = {
     savings: false
 };
 
-for(let i = 0; i < 2; i++){
-    let a = prompt('Введите статью обязательных расходов ', 'Обязательный расход ' + (i+1)),
+// *** Variant with 'for' ***
+//
+// for(let i = 0; i < 2; i++){
+//     let a = prompt('Введите статью обязательных расходов ', 'Обязательный расход ' + (i+1)),
+//         b = +prompt('Его значение', 0);
+    
+//     if(typeof(a) != null && a.length <= 50 && a != '' && !isNaN(b) ){
+
+//         appData.expenses[a] = b;
+//     } else {
+//         i--;
+//     }
+    
+// }
+//
+
+
+// *** Variant with 'while' ***
+//
+// let i = 0;
+// while(i < 2){
+
+//     let a = prompt('Введите название статьи расходов: ', 'Обязательный расход '+ (1+i)),
+//         b = +prompt('Его значение', 0);
+    
+//     if(typeof(a) != null && a.length <= 50 && a != '' && !isNaN(b)){
+
+//         appData.expenses[a] = b;
+//     } else {
+//         i--;
+//     }
+//     i++;
+// }
+
+let i = 0;
+do{
+    let a = prompt('Введите название статьи расходов: ', 'Обязательный расход '+ (1+i)),
         b = +prompt('Его значение', 0);
     
-    if(typeof(a) != null && a.length <= 50 && a != '' && !isNaN(b) ){
+    if(typeof(a) != null && a.length <= 50 && a != '' && !isNaN(b)){
 
         appData.expenses[a] = b;
     } else {
         i--;
     }
-    
-}
+
+} while(++i < 2);
 
 appData.moneyPerDay = appData.budget / 30;
 
