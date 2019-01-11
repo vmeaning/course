@@ -5,8 +5,6 @@
 let appData = {
     budget: null,
     timeData: null,
-    expenses: {},
-    optionalExpenses: {},
     income: [],
     savings: true,
     _checkExpName: function(str){
@@ -26,7 +24,7 @@ let appData = {
             a = prompt('Введите название статьи обязательных расходов ', 'Обязательный расход ' + (i+1));
             b = prompt('Его значение', 0);
             
-            if(_checkExpName(a) && _checkExpVal(b)){
+            if(appData._checkExpName(a) && appData._checkExpVal(b)){
                 this.expenses[a] = b;
             } else {
                 i--;
@@ -38,7 +36,7 @@ let appData = {
         for(let i = 0, a, b; i < n; i++){
             b = prompt('Введите размер необязательного расхода №' + (i+1), 0);
             
-            if(_checkExpVal(b)){
+            if(appData._checkExpVal(b)){
                 this.optionalExpenses[i+1] = b;
             } else {
                 i--;
@@ -52,8 +50,8 @@ let appData = {
             do{
                 save = prompt('Какова сумма Ваших накоплений?');
                 percent = prompt('Под какой процент?');
-            } while(!(_checkExpName(save) && _checkExpVal(percent) && !isNaN(percent)));
-            this.monthIncome = (+save)/100/12*(+percent);
+            } while(!(appData._checkExpName(save) && appData._checkExpVal(percent) && !isNaN(percent)));
+            this.monthIncome = ((+save)/100/12*(+percent)).toFixed(2);
             alert('Ежемесячный доход с Вашего депозита составляет: ' + this.monthIncome);
         }
     },
@@ -72,23 +70,43 @@ let appData = {
         } else {
             console.log('Удивительно, но что-то пошло не так. Ошибка!');
         }
+    }, 
+    detectDayDudget(){
+        this.moneyPerDay = +(this.budget / 30).toFixed(1);
+        alert("Доступный ежедневный расход: " + this.moneyPerDay);
+    },
+    getIncome: function(){
+        let items;
+        do{
+            items = prompt('Укажите источники дополнительного дохода (через запятую)', '');
+        } while (!appData._checkExpName(items));
+        this.income = items.split(', ').join(',').split(',');
     }
 };
 
 //define constructor
 function FinProfile(money, data = '2000-01-01'){
+    this.__proto__ = appData;
     this.budget = +money;
     this.timeData = data;
-    this.__proto__ = appData;
+    this.expenses = {};
+    this.optionalExpenses = {};
 }
 
 // set global variables
 let money, time;
 
-getMoneyAndTime();
+getMoneyAndTime(); //prompt money and time from user
 
-let profile1 = new FinProfile(50000);
+let profile1 = new FinProfile(money, time);
+profile1.savings = true;
 
+
+profile1.getExpenses();
+profile1.getOptExpenses(3);
+profile1.detectLevel(profile1.budget);
+profile1.checkSavings();
+profile1.getIncome();
 
 
 function getMoneyAndTime(){
@@ -102,33 +120,5 @@ function getMoneyAndTime(){
     } while(false); //reserved for entered time format validation
 }
 
-// function checkExpName(str){
-//     /* валидация строкового имени расхода, полученного через prompt */ 
-//     if(str == null) {return false;}
-//     if(str.lenght > 10 || str == '') {return false;}
-//     return true;
-// }
-
-// function checkExpVal(val){
-//     /* валидация значения размера расхода и т.п. значений, полученных через prompt */
-//     if(val == null || isNaN(val) || val == undefined ) {return false;}
-//     return true;
-// }
-
-
 let toLog = (msg) => console.log(msg);
 
-// getMoneyAndTime();      //prompt form user appData.bufget and appData.timeData values
-// getExpenses();          //prompt expenses
-// getOptExpenses(3);      //prompt optional expenses
-// toLog(detectLevel(appData.budget));
-
-// checkSavings();
-
-
-
-
-
-// appData.moneyPerDay = +(appData.budget / 30).toFixed(1);
-
-// alert("Доступный ежедневный расход: " + appData.moneyPerDay);
