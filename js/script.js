@@ -52,7 +52,7 @@ let appData = {
             do{
                 save = prompt('Какова сумма Ваших накоплений?');
                 percent = prompt('Под какой процент?');
-            } while(!(checkExpName(save) && checkExpVal(percent) && !isNaN(percent)));
+            } while(!(_checkExpName(save) && _checkExpVal(percent) && !isNaN(percent)));
             this.monthIncome = (+save)/100/12*(+percent);
             alert('Ежемесячный доход с Вашего депозита составляет: ' + this.monthIncome);
         }
