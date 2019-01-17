@@ -81,6 +81,9 @@ let appData = {
             items = prompt('Укажите источники дополнительного дохода (через запятую)', '');
         } while (!appData._checkExpName(items));
         this.income = items.split(', ').join(',').split(',');
+        this.income.forEach(function(item, i){
+            document.write('<p>Способы заработка' + (i+1) + ': ' + item) + '</p>';
+        });
     }
 };
 
@@ -93,8 +96,11 @@ function FinProfile(money, data = '2000-01-01'){
     this.optionalExpenses = {};
 }
 
+
 // set global variables
+
 let money, time;
+let toLog = (msg) => console.log(msg);
 
 getMoneyAndTime(); //prompt money and time from user
 
@@ -102,11 +108,12 @@ let profile1 = new FinProfile(money, time);
 profile1.savings = true;
 
 
-profile1.getExpenses();
-profile1.getOptExpenses(3);
-profile1.detectLevel(profile1.budget);
-profile1.checkSavings();
+// profile1.getExpenses();
+// profile1.getOptExpenses(3);
+// profile1.detectLevel(profile1.budget);
+// profile1.checkSavings();
 profile1.getIncome();
+
 
 
 function getMoneyAndTime(){
@@ -120,5 +127,5 @@ function getMoneyAndTime(){
     } while(false); //reserved for entered time format validation
 }
 
-let toLog = (msg) => console.log(msg);
+
 
