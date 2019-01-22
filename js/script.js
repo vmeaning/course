@@ -96,11 +96,13 @@ function FinProfile(money, data = '2000-01-01'){
     this.optionalExpenses = {};
 }
 
+// *** The program started here ***
 
 // set global variables
 
 let money, time;
 let toLog = (msg) => console.log(msg);
+let toScreen = (msg) => document.write(msg);
 
 getMoneyAndTime(); //prompt money and time from user
 
@@ -113,6 +115,12 @@ profile1.savings = true;
 // profile1.detectLevel(profile1.budget);
 // profile1.checkSavings();
 profile1.getIncome();
+
+toScreen('</br> <h2>Structure of the object</h2>');
+for(let key in profile1){
+    toScreen('<b>' + key + '</b>' + ': ' + profile1[key] + '</br>');
+}
+
 
 
 
